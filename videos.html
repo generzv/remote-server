@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Entry</title>
+</head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <h1>Play video <div id="message"></div></h1>
+  <script>
+    (function ($) {
+      var socket = io();
+      socket.on('play video', function(msg){
+        console.log("Received: play video, ", msg);
+        $('#message').text(msg);
+      });
+    })(jQuery);
+  </script>
+</body>
+</html>

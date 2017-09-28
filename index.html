@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Entry</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <style>
+    #remote,
+    #display {
+      display: none;
+    }
+    .no-touch #display {
+      display: block;
+    }
+    .touch #remote {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <div id="remote">
+    <ul>
+      <li><a href="#" data-play="video1">Video 1</a></li>
+      <li><a href="#" data-play="video2">Video 2</a></li>
+      <li><a href="#" data-play="video3">Video 3</a></li>
+    </ul>
+  </div>
+  <div id="display">
+    <h1>Play video <div id="message"></div></h1>
+  </div>
+  <script>
+    var socket = io();
+    if (Modernizr.touch) {
+      $(document).on('click', '[data-play]', function(evt) {
+        evt.preventDefault();
+        console.log($(this).data('play'))
+        socket.emit('play video', $(this).data('play'));
+        return false;
+      })
+    } else {
+      socket.on('play video', function(msg){
+        console.log("Received: play video, ", msg);
+        $('#message').text(msg);
+      });
+    }
+  </script>
+</body>
+</html>
