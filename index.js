@@ -21,8 +21,8 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3001, function(){
-  console.log('listening on :3001');
+http.listen(3001, 'socketio-custom-server.herokuapp.com', function(){
+  console.log('listening on //socketio-custom-server.herokuapp.com:3001');
 });
 
 
